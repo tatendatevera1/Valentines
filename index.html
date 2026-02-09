@@ -172,6 +172,7 @@ img {
 <script>
 let photos = ["us1.jpg", "us2.jpg", "us3.jpg", "us4.jpg"];
 let index = 0;
+let firstClick = true;
 
 function openLetter() {
   document.querySelector('.letter').classList.add('open');
@@ -186,13 +187,15 @@ function nextPhoto() {
   const music = document.getElementById('valentineMusic');
   if (music.paused) music.play();
 
-  // Show names and first image if hidden
   const names = document.getElementById('names');
   const photo = document.getElementById('photo');
-  if (photo.style.display === 'none') {
+
+  if (firstClick) {
+    // First click: show names and first photo
     names.style.opacity = 1;
     photo.style.display = 'block';
-    photo.src = photos[index];
+    photo.src = photos[0];
+    firstClick = false;
     return;
   }
 
@@ -218,3 +221,4 @@ function nextPhoto() {
 
 </body>
 </html>
+
