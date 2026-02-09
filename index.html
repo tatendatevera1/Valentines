@@ -14,12 +14,38 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(to bottom, #ffd6e8, #fff);
+  background: linear-gradient(to bottom, #d9b3ff, #f0e6ff); /* purple theme */
   height: 100vh;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+
+/* Tulips in the background */
+.tulip {
+  position: absolute;
+  bottom: 0;
+  width: 50px;
+  height: 80px;
+  background: linear-gradient(to top, #ff99cc, #ff66b2);
+  border-radius: 0 0 10px 10px;
+  animation: sway 3s infinite alternate;
+}
+.tulip::after {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: 10px;
+  width: 30px;
+  height: 20px;
+  background: #ff3399;
+  border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+}
+@keyframes sway {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
 }
 
 /* ---------- LETTER INTRO ---------- */
@@ -27,11 +53,12 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #ffd6e8;
+  background: #c299ff; /* purple theme */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
+  flex-direction: column;
 }
 
 .letter {
@@ -89,7 +116,7 @@ body {
 
 h1 {
   font-size: 1.6rem;
-  color: #b30059;
+  color: #800080; /* deep purple */
   margin-bottom: 10px;
 }
 
@@ -113,6 +140,13 @@ img {
 .heart {
   font-size: 3rem;
   cursor: pointer;
+  color: #ff66cc;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
 }
 
 .floating-heart {
@@ -130,15 +164,30 @@ img {
 
 .lock {
   font-size: 1.2rem;
-  color: #b30059;
+  color: #800080;
+}
+
+.prompt {
+  font-size: 1rem;
+  color: #4d004d;
+  margin-bottom: 20px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- Tulips -->
+<div class="tulip" style="left: 10%; animation-delay: 0s;"></div>
+<div class="tulip" style="left: 25%; animation-delay: 0.5s;"></div>
+<div class="tulip" style="left: 40%; animation-delay: 1s;"></div>
+<div class="tulip" style="left: 60%; animation-delay: 0.2s;"></div>
+<div class="tulip" style="left: 75%; animation-delay: 0.7s;"></div>
+<div class="tulip" style="left: 90%; animation-delay: 1.2s;"></div>
+
 <!-- LETTER -->
 <div id="letterScreen">
+  <div class="prompt">Click the envelope 💌</div>
   <div class="letter" onclick="openLetter()">
     <div class="seal"></div>
   </div>
@@ -149,12 +198,16 @@ img {
   <h1>Will you be my Valentine? 💜</h1>
   <div class="names">Hanna & Tatenda<br>11/2/2025</div>
   <img id="photo" src="photo1.jpg" />
+  <div class="prompt">Click the heart ❤️</div>
   <div class="heart" onclick="nextPhoto()">❤️</div>
   <div id="message"></div>
 </div>
 
+<!-- Music -->
+<audio id="valentineMusic" src="music.mp3"></audio>
+
 <script>
-let photos = ["photo1.jpg", "photo2.jpg", "photo3.jpg"];
+let photos = ["us1.jpg", "us2.jpg", "us3.JPG","us4.jpg"];
 let index = 0;
 
 function openLetter() {
@@ -166,6 +219,10 @@ function openLetter() {
 }
 
 function nextPhoto() {
+  // Play music on first heart click
+  const music = document.getElementById('valentineMusic');
+  if (music.paused) music.play();
+
   // Remove old floating hearts
   document.querySelectorAll('.floating-heart').forEach(h => h.remove());
 
