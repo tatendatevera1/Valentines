@@ -23,7 +23,7 @@ body {
   position: relative;
 }
 
-/* Checkerboard heart background - spaced out more */
+/* ---------- Alternating heart checkerboard background ---------- */
 body::before {
   content: '';
   position: absolute;
@@ -42,7 +42,7 @@ body::before {
   opacity: 0.15;
 }
 
-/* ---------- LETTER INTRO ---------- */
+/* ---------- LETTER ---------- */
 #letterScreen {
   position: absolute;
   width: 100%;
@@ -184,7 +184,7 @@ img {
   100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
 }
 
-/* No button for mobile smooth dodge */
+/* No button smooth dodge */
 #noBtn {
   padding: 10px 20px;
   font-size: 1rem;
@@ -193,9 +193,9 @@ img {
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
-  position: absolute; /* allow smooth movement */
+  position: absolute; 
   margin-top: 15px;
-  transition: left 0.5s ease, top 0.5s ease; /* smooth movement */
+  transition: left 0.5s ease, top 0.5s ease; 
 }
 </style>
 </head>
@@ -301,4 +301,3 @@ noBtn.addEventListener('touchstart', moveNoBtn);
 
 </body>
 </html>
- 
