@@ -129,6 +129,11 @@ img {
   display: none;
 }
 
+/* Make us3.JPG 25% smaller */
+img.us3 {
+  width: 67.5%; /* 90% * 0.75 = 67.5% of container */
+}
+
 .heart {
   font-size: 3rem;
   cursor: pointer;
@@ -243,10 +248,18 @@ function nextPhoto() {
 
   const names = document.getElementById('names');
   const photo = document.getElementById('photo');
+  const noBtn = document.getElementById('noBtn');
 
   if (firstClick) {
     names.style.opacity = 1;
     photo.style.display = 'block';
+    // Hide the no button on first heart click
+    noBtn.style.display = 'none';
+
+    // Check if the first photo is us3.JPG
+    if (photos[0] === "us3.JPG") photo.classList.add("us3");
+    else photo.classList.remove("us3");
+
     photo.src = photos[0];
     firstClick = false;
     return;
@@ -257,6 +270,10 @@ function nextPhoto() {
   index++;
   if (index < photos.length) {
     photo.src = photos[index];
+
+    // Apply smaller size if it's us3.JPG
+    if (photos[index] === "us3.JPG") photo.classList.add("us3");
+    else photo.classList.remove("us3");
 
     let heart = document.createElement("div");
     heart.className = "floating-heart";
@@ -294,7 +311,6 @@ function moveNoBtn() {
   noBtn.style.top = y + 'px';
 }
 
-// Add click/touch event
 noBtn.addEventListener('click', moveNoBtn);
 noBtn.addEventListener('touchstart', moveNoBtn);
 </script>
