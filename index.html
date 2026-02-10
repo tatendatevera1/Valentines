@@ -19,23 +19,27 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #d1a3ff, #f5e0ff); /* Purple gradient */
+  background: linear-gradient(135deg, #d1a3ff, #f5e0ff);
   position: relative;
 }
 
-/* Checkerboard hearts background */
+/* Checkerboard heart background */
 body::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
   background-size: 50px 50px;
   background-image: 
-    linear-gradient(45deg, transparent 75%, #800080 75%),
-    linear-gradient(-45deg, transparent 75%, #ff69b4 75%),
-    linear-gradient(45deg, transparent 75%, #ff0000 75%),
-    linear-gradient(-45deg, transparent 75%, #800080 75%);
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💜</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">❤️</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💖</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💜</text></svg>');
+  background-position: 0 0, 25px 25px, 25px 0, 0 25px;
+  background-repeat: repeat;
   z-index: 0;
-  opacity: 0.1; /* subtle overlay */
+  opacity: 0.15;
 }
 
 /* ---------- LETTER INTRO ---------- */
@@ -43,7 +47,7 @@ body::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #d1a3ff; /* Purple theme */
+  background: #d1a3ff; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,7 +111,7 @@ body::before {
 
 h1 {
   font-size: 1.6rem;
-  color: #800080; /* deep purple */
+  color: #800080; 
   margin-bottom: 10px;
 }
 
@@ -122,14 +126,15 @@ img {
   max-width: 320px;
   border-radius: 20px;
   margin: 15px 0;
-  display: none; /* hidden until heart is clicked */
+  display: none;
 }
 
 .heart {
   font-size: 3rem;
   cursor: pointer;
-  color: #800080; /* purple heart */
+  color: #800080; 
   animation: pulse 1s infinite;
+  margin: 10px;
 }
 
 @keyframes pulse {
@@ -178,6 +183,19 @@ img {
   0% { transform: translateY(0) rotate(0deg); }
   100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
 }
+
+/* Dodging no button */
+#noBtn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background: #ff69b4;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  cursor: pointer;
+  position: relative;
+  margin-top: 15px;
+}
 </style>
 </head>
 
@@ -198,6 +216,7 @@ img {
   <img id="photo" src="" />
   <div class="prompt">Click the heart 💜</div>
   <div class="heart" onclick="nextPhoto()">💜</div>
+  <button id="noBtn">No 😢</button>
   <div id="message"></div>
 </div>
 
@@ -264,6 +283,16 @@ function launchConfetti() {
     setTimeout(() => confetti.remove(), 4000);
   }
 }
+
+// Make the no button dodge
+const noBtn = document.getElementById('noBtn');
+noBtn.addEventListener('mouseenter', () => {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+});
 </script>
 
 </body>
