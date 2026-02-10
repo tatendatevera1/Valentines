@@ -23,20 +23,20 @@ body {
   position: relative;
 }
 
-/* Checkerboard heart background */
+/* Checkerboard heart background - spaced out more */
 body::before {
   content: '';
   position: absolute;
   top: 0; left: 0;
   width: 100%;
   height: 100%;
-  background-size: 50px 50px;
+  background-size: 80px 80px; 
   background-image: 
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💜</text></svg>'),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">❤️</text></svg>'),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💖</text></svg>'),
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"><text x="0" y="35" font-size="35">💜</text></svg>');
-  background-position: 0 0, 25px 25px, 25px 0, 0 25px;
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="0" y="55" font-size="50">💜</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="0" y="55" font-size="50">❤️</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="0" y="55" font-size="50">💖</text></svg>'),
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><text x="0" y="55" font-size="50">💜</text></svg>');
+  background-position: 0 0, 40px 40px, 40px 0, 0 40px;
   background-repeat: repeat;
   z-index: 0;
   opacity: 0.15;
@@ -184,7 +184,7 @@ img {
   100% { transform: translateY(600px) rotate(720deg); opacity: 0; }
 }
 
-/* Dodging no button */
+/* No button for mobile smooth dodge */
 #noBtn {
   padding: 10px 20px;
   font-size: 1rem;
@@ -193,8 +193,9 @@ img {
   border-radius: 10px;
   color: #fff;
   cursor: pointer;
-  position: relative;
+  position: absolute; /* allow smooth movement */
   margin-top: 15px;
+  transition: left 0.5s ease, top 0.5s ease; /* smooth movement */
 }
 </style>
 </head>
@@ -284,16 +285,20 @@ function launchConfetti() {
   }
 }
 
-// Make the no button dodge
+// Smooth moving no button
 const noBtn = document.getElementById('noBtn');
-noBtn.addEventListener('mouseenter', () => {
+function moveNoBtn() {
   const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-  noBtn.style.position = 'absolute';
   noBtn.style.left = x + 'px';
   noBtn.style.top = y + 'px';
-});
+}
+
+// Add click/touch event
+noBtn.addEventListener('click', moveNoBtn);
+noBtn.addEventListener('touchstart', moveNoBtn);
 </script>
 
 </body>
 </html>
+ 
